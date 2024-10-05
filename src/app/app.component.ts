@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { ShotChartComponent } from "./charts/shot-chart/shot-chart.component";
 import { PlayerPageComponent } from "./pages/player-page/player-page.component";
-import { NbLayoutModule } from '@nebular/theme';
+import { NbLayoutModule, NbThemeModule } from '@nebular/theme';
 
 @Component({
   selector: 'app-root',
@@ -13,4 +13,6 @@ import { NbLayoutModule } from '@nebular/theme';
 })
 export class AppComponent {
   title = 'nba-visualizations';
+
+  constructor() {}
 }
