@@ -2,7 +2,6 @@ import * as d3 from 'd3';
 
 export default class Utils {
     static drawCourt(svg: any, width: number, height: number) {
-        console.log('drawing')
         svg.selectAll("*").remove()
         let xFeet = d3.scaleLinear()
             .domain([-25,25])

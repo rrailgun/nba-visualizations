@@ -13,6 +13,8 @@ export class PlayerPageComponent {
     playerId: string;
 
     constructor(private route: ActivatedRoute) {
-        this.playerId = this.route.snapshot.paramMap.get('playerId');
+      this.route.paramMap.subscribe(param => {
+        this.playerId = param.get('playerId');
+      });
     }
 }

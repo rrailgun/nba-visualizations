@@ -1,8 +1,13 @@
 <mat-sidenav-container>
     <mat-sidenav mode="side" class="side-drawer" opened>
-      <mat-nav-list>
-        <a mat-list-item>test</a>
-      </mat-nav-list>
+        <mat-form-field>
+            <mat-label>Choose a player</mat-label>
+            <mat-select [formControl]="playerFormControl">
+                @for (player of players | async; track player) {
+                    <mat-option [value]="player.id" >{{player.full_name}}</mat-option>
+                }
+            </mat-select>
+        </mat-form-field>
     </mat-sidenav>
     <mat-sidenav-content>
       <router-outlet></router-outlet>

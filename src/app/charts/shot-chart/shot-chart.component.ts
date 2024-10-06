@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import * as d3 from 'd3';
 import Utils from '../../util/utils';
 import { PlayerDataService } from '../../services/player-data.service';
@@ -10,7 +10,7 @@ import { PlayerDataService } from '../../services/player-data.service';
   templateUrl: './shot-chart.component.html',
   styleUrl: './shot-chart.component.scss'
 })
-export class ShotChartComponent implements OnInit {
+export class ShotChartComponent implements OnInit, OnChanges {
     @Input() playerId: string;
     svg: any;
     width = 500
@@ -21,6 +21,14 @@ export class ShotChartComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.resetChart();
+    }
+
+    ngOnChanges() {
+        this.resetChart();
+    }
+
+    resetChart() {
         this.svg = d3.select('#shot-chart')
         this.svg.attr("height", '70vh')
         .attr("viewBox", "0 0 " + this.width + " " + this.height)
@@ -67,7 +75,6 @@ export class ShotChartComponent implements OnInit {
                 .style('cursor', 'pointer')
                 .on("click", (e,d) => {
                     this.playerDataAPI.getVideoEvent(d.GAME_ID, d.GAME_EVENT_ID).subscribe( res => {
-                        console.log(res)
                         if (res['resultSets']["Meta"]["videoUrls"][0]["lurl"] === null) alert('No video found')
                         else window.open(res['resultSets']["Meta"]["videoUrls"][0]["lurl"], '_blank')
                     })
