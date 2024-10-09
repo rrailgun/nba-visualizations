@@ -25,13 +25,22 @@ import {MatSelectModule} from '@angular/material/select';
 export class AppComponent {
   players: Observable<Player[]>;
   filteredOptions: Observable<Player[]>;
-  playerFormControl = new FormControl();
+
+  links = [
+    {
+        route: '',
+        label: 'Home'
+    },
+    {
+        route: 'player',
+        label: 'Player'
+    }
+  ]
 
   constructor(private playerApi: PlayerDataService,
     private router: Router
   ) {
     this.players = playerApi.getPlayers();
-    this.playerFormControl.valueChanges.subscribe(res => this.navigate(`player/${res}`))
   }
 
   navigate(route: string) {

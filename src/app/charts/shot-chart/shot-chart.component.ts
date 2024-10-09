@@ -35,7 +35,8 @@ export class ShotChartComponent implements OnInit, OnChanges {
         .attr("perserveAspectRatio", "xMinYMid")
         .style("border", "1px solid black")
         Utils.drawCourt(this.svg, this.width, this.height);
-        this.playerDataAPI.getShotData(this.playerId, '2023-24').subscribe( res => {
+        if (this.playerId == undefined) this.drawShots([]);
+        else this.playerDataAPI.getShotData(this.playerId, '2023-24').subscribe( res => {
             this.drawShots(res['Shot_Chart_Detail'] as []);
         })
     }
