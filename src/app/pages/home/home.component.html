@@ -1,1 +1,9 @@
 <h1>NBA Visualizations</h1>
+
+<mat-form-field>
+    <select matNativeControl [formControl]="playerSearch" required>
+        @for (option of playerList | async; track option) {
+            <option [value]="option.id" requireSelection>{{option.full_name}}</option>
+          }
+    </select>
+</mat-form-field>

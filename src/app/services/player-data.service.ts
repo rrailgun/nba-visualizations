@@ -23,4 +23,8 @@ export class PlayerDataService {
     return this.http.get(`${this.baseURL}/videoevents?GameEventID=${GameEventID}&GameID=${gameID}`)
   }
 
+  public getCareerData(playerId, leagueId) {
+    return this.http.get(`${this.baseURL}/careerstats?PlayerID=${playerId}&LeagueId=${leagueId}`)
+  }
+
 }

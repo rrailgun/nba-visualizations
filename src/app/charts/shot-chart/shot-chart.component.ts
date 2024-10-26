@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import * as d3 from 'd3';
 import Utils from '../../util/utils';
 import { PlayerDataService } from '../../services/player-data.service';
@@ -12,6 +12,7 @@ import { PlayerDataService } from '../../services/player-data.service';
 })
 export class ShotChartComponent implements OnInit, OnChanges {
     @Input() playerId: string;
+    @Input() year: string;
     svg: any;
     width = 500
     height = 940;
@@ -24,7 +25,7 @@ export class ShotChartComponent implements OnInit, OnChanges {
         this.resetChart();
     }
 
-    ngOnChanges() {
+    ngOnChanges(changes: SimpleChanges): void {
         this.resetChart();
     }
 
@@ -36,7 +37,7 @@ export class ShotChartComponent implements OnInit, OnChanges {
         .style("border", "1px solid black")
         Utils.drawCourt(this.svg, this.width, this.height);
         if (this.playerId == undefined) this.drawShots([]);
-        else this.playerDataAPI.getShotData(this.playerId, '2023-24').subscribe( res => {
+        else this.playerDataAPI.getShotData(this.playerId, this.year).subscribe( res => {
             this.drawShots(res['Shot_Chart_Detail'] as []);
         })
     }

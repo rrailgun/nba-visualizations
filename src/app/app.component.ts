@@ -30,10 +30,6 @@ export class AppComponent {
     {
         route: '',
         label: 'Home'
-    },
-    {
-        route: 'player',
-        label: 'Player'
     }
   ]
 

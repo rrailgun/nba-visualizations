@@ -8,6 +8,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { AsyncPipe } from '@angular/common';
 import { MatInputModule } from "@angular/material/input"
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-player-page',
@@ -18,12 +19,19 @@ import { MatInputModule } from "@angular/material/input"
 })
 export class PlayerPageComponent {
     playerId: string;
-    playerList: Observable<Player[]>;
-    playerSearch = new FormControl('');
+    careerData: any;
+    yearSelected: string;
+    yearList: string[] = [];
+    selectedYear = new FormControl('2024-25');
 
-    constructor(private playerApi: PlayerDataService) {
-        this.playerList = playerApi.getPlayers();
-        this.playerSearch.valueChanges.subscribe( res => this.playerId=res)
-
+    constructor(private playerApi: PlayerDataService, private route: ActivatedRoute) {
+        this.playerId = this.route.snapshot.paramMap.get('playerId');
+        this.careerData = playerApi.getCareerData(this.playerId, '00');
+        this.careerData.subscribe(res => {
+            console.log(res.SeasonRankingsRegularSeason)
+            res.SeasonRankingsRegularSeason.forEach(element => {
+                this.yearList.push(element.SEASON_ID)
+            });
+        }) 
     }
 }
